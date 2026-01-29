@@ -17,4 +17,57 @@ public class Applicant implements Comparable<Applicant> {
         this.eligible = false;
     }
 
+    @Override
+    public int compareTo(Applicant other) {
+        // Compare by credit score in descending order
+        return Integer.compare(other.creditScore, this.creditScore);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public int getCreditScore() {
+        return creditScore;
+    }
+
+    public boolean isEligible() {
+        return eligible;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setLoanAmount(double loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public void setCreditScore(int creditScore) {
+        this.creditScore = creditScore;
+    }
+
+    public void setEligible(boolean eligible) {
+        this.eligible = eligible;
+    }
 }
