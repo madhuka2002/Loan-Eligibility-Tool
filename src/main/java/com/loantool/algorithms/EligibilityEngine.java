@@ -59,4 +59,9 @@ public class EligibilityEngine {
         return eligibleApplicants;
     }
 
+    public String getRejectionReason(Applicant applicant) {
+        // Force evaluation to set rejection reason
+        isEligible(applicant);
+        return rejectionReason;
+    }
 }
