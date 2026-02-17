@@ -92,9 +92,7 @@ public class ApplicantMaxHeap {
         return size == 0;
     }
 
-    /**
-     * Build heap from list.
-     */
+    // Build heap from list.
     public void buildHeap(List<Applicant> applicants) {
         heap.clear();
         heap.addAll(applicants);
@@ -104,9 +102,7 @@ public class ApplicantMaxHeap {
         }
     }
 
-    /**
-     * Extract top K applicants by risk score.
-     */
+    // Extract top K applicants by risk score
     public List<Applicant> extractTopK(int k) {
         List<Applicant> topK = new ArrayList<>();
         int count = Math.min(k, size);
