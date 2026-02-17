@@ -12,6 +12,7 @@ public class MergeSorter {
             return new ArrayList<>(applicants);
         }
 
+<<<<<<< HEAD
         // Convert array for sorting
         Applicant[] array = applicants.toArray(new Applicant[0]);
         mergeSort(array, 0, array.length-1);
@@ -22,11 +23,23 @@ public class MergeSorter {
         }
         return sorted;
 
+=======
+        // Convert to array for sorting
+        Applicant[] array = applicants.toArray(new Applicant[0]);
+        mergeSort(array, 0, array.length - 1);
+
+        List<Applicant> sorted = new ArrayList<>();
+        for (Applicant applicant : array) {
+            sorted.add(applicant);
+        }
+
+        return sorted;
+>>>>>>> f66ec9bbca1fb12e574958af2d735258fc32bad6
     }
 
     private void mergeSort(Applicant[] array, int left, int right) {
         if (left < right) {
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
 
             // Recursively sort both halves
             mergeSort(array, left, mid);
@@ -38,11 +51,17 @@ public class MergeSorter {
     }
 
     private void merge(Applicant[] array, int left, int mid, int right) {
-
         // Create temporary arrays
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
+<<<<<<< HEAD
+        // Create temporary arrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+=======
+>>>>>>> f66ec9bbca1fb12e574958af2d735258fc32bad6
         Applicant[] leftArray = new Applicant[n1];
         Applicant[] rightArray = new Applicant[n2];
 
@@ -76,6 +95,9 @@ public class MergeSorter {
             j++;
             k++;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> f66ec9bbca1fb12e574958af2d735258fc32bad6
     }
 }

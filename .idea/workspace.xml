@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fa71e07-6a6c-497a-b77a-34bddb627bc0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/loantool/datastructures/ApplicantMaxHeap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loantool/algorithms/MergeSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loantool/algorithms/MergeSorter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/loantool/models/Applicant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loantool/models/Applicant.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +133,7 @@
       <workItem from="1768573599925" duration="96000" />
       <workItem from="1769665133600" duration="270000" />
       <workItem from="1769665420236" duration="2789000" />
-      <workItem from="1771300723146" duration="1044000" />
+      <workItem from="1771300723146" duration="2019000" />
     </task>
     <servers />
   </component>
