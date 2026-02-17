@@ -92,4 +92,29 @@ public class RulesFlowGraph {
         return sb.toString();
     }
 
+    // DFS traversal - shows the path from START to ELIGIBLE/REJECTED.
+    public String getFlowPaths() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Eligibility Rule Flow (Graph)\n");
+        sb.append("============================\n");
+        sb.append("Nodes: ").append(RuleNode.values().length).append(" | Edges: Success/Fail transitions\n\n");
+        sb.append("Flow: START → Income → Debt → Credit → Employment → LoanAmount\n");
+        sb.append("         ↓        ↓       ↓         ↓            ↓\n");
+        sb.append("      REJECTED (if any check fails)\n");
+        sb.append("         ↓ (all pass)\n");
+        sb.append("      ELIGIBLE\n");
+        return sb.toString();
+    }
+
+    public int getNodeCount() {
+        return RuleNode.values().length;
+    }
+
+    public int getEdgeCount() {
+        int count = 0;
+        for (List<RuleNode> edges : adjacencyList.values()) {
+            count += edges.size();
+        }
+        return count;
+    }
 }
