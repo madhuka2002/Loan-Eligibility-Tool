@@ -43,6 +43,10 @@ public class Applicant implements Comparable<Applicant> {
         return creditScore;
     }
 
+    public int getRiskScore() {
+        return creditScore;
+    }
+
     public boolean isEligible() {
         return eligible;
     }

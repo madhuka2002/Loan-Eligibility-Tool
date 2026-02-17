@@ -12,8 +12,16 @@ public class MergeSorter {
             return new ArrayList<>(applicants);
         }
 
+        // Convert array for sorting
         Applicant[] array = applicants.toArray(new Applicant[0]);
         mergeSort(array, 0, array.length-1);
+
+        List<Applicant> sorted = new ArrayList<>();
+        for(Applicant applicant : array) {
+            sorted.add(applicant);
+        }
+        return sorted;
+
     }
 
     private void mergeSort(Applicant[] array, int left, int right) {
@@ -30,6 +38,44 @@ public class MergeSorter {
     }
 
     private void merge(Applicant[] array, int left, int mid, int right) {
+
+        // Create temporary arrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        Applicant[] leftArray = new Applicant[n1];
+        Applicant[] rightArray = new Applicant[n2];
+
+        // Copy data to temp arrays
+        System.arraycopy(array, left, leftArray, 0, n1);
+        System.arraycopy(array, mid + 1, rightArray, 0, n2);
+
+        // Merge the temp arrays
+        int i = 0, j = 0, k = left;
+
+        while (i < n1 && j < n2) {
+            if (leftArray[i].compareTo(rightArray[j]) <= 0) {
+                array[k] = leftArray[i];
+                i++;
+            } else {
+                array[k] = rightArray[j];
+                j++;
+            }
+            k++;
+        }
+
+        // Copy remaining elements
+        while (i < n1) {
+            array[k] = leftArray[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            array[k] = rightArray[j];
+            j++;
+            k++;
+        }
 
     }
 }
