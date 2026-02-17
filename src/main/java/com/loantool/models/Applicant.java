@@ -44,7 +44,7 @@ public class Applicant implements Comparable<Applicant> {
     }
 
     public int getRiskScore() {
-        return creditScore;
+        return (int) (1 - (creditScore / 850.0)); // Normalize credit score to a risk score between 0 and 1
     }
 
     public boolean isEligible() {
