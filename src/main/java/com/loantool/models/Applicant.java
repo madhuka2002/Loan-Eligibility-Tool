@@ -11,7 +11,7 @@ public class Applicant implements Comparable<Applicant> {
     private boolean eligible;
 
     public Applicant(String id, double monthlyIncome, double existingDebt,
-            int creditScore, int employmentDuration, double loanAmountRequested) {
+                     int creditScore, int employmentDuration, double loanAmountRequested) {
         this.id = id;
         this.monthlyIncome = monthlyIncome;
         this.existingDebt = existingDebt;
