@@ -58,4 +58,38 @@ public class RulesFlowGraph {
         return new ArrayList<>(adjacencyList.get(node));
     }
 
+    // BFS traversal from START to show the decision flow.
+    public String bfsTraversal() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Decision Flow Graph (BFS from Start)\n");
+        sb.append("====================================\n");
+
+        Set<RuleNode> visited = new HashSet<>();
+        Queue<RuleNode> queue = new LinkedList<>();
+        queue.add(RuleNode.START);
+        visited.add(RuleNode.START);
+
+        int level = 0;
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            sb.append("Level ").append(level).append(": ");
+            for (int i = 0; i < levelSize; i++) {
+                RuleNode node = queue.poll();
+                sb.append(node.getLabel());
+                if (i < levelSize - 1)
+                    sb.append(", ");
+
+                for (RuleNode neighbor : getNeighbors(node)) {
+                    if (!visited.contains(neighbor)) {
+                        visited.add(neighbor);
+                        queue.add(neighbor);
+                    }
+                }
+            }
+            sb.append("\n");
+            level++;
+        }
+        return sb.toString();
+    }
+
 }
