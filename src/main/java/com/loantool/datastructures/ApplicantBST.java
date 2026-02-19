@@ -47,5 +47,57 @@ public class ApplicantBST {
         return node;
     }
 
-   
+    /**
+     * Find applicants within risk score range [minScore, maxScore].
+     * Uses in-order traversal to collect matching nodes.
+     */
+    public List<Applicant> findInRange(double minScore, double maxScore) {
+        List<Applicant> result = new ArrayList<>();
+        findInRangeRec(root, minScore, maxScore, result);
+        return result;
+    }
+
+    private void findInRangeRec(BSTNode node, double minScore, double maxScore, List<Applicant> result) {
+        if (node == null) return;
+
+        double score = node.applicant.getRiskScore();
+        if (score >= minScore && score <= maxScore) {
+            result.add(node.applicant);
+        }
+        if (score > minScore) {
+            findInRangeRec(node.left, minScore, maxScore, result);
+        }
+        if (score < maxScore) {
+            findInRangeRec(node.right, minScore, maxScore, result);
+        }
+    }
+
+    /**
+     * Get all applicants in descending risk score order (highest first).
+     */
+    public List<Applicant> getAllDescending() {
+        List<Applicant> result = new ArrayList<>();
+        inOrderDescending(root, result);
+        return result;
+    }
+
+    private void inOrderDescending(BSTNode node, List<Applicant> result) {
+        if (node == null) return;
+        inOrderDescending(node.left, result);  // Left has higher scores
+        result.add(node.applicant);
+        inOrderDescending(node.right, result); // Right has lower scores
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return root == null;
+    }
+
+    public void clear() {
+        root = null;
+        size = 0;
+    }
 }
