@@ -161,37 +161,83 @@ public class FileHandler {
         }
     }
 
-    // Create directory if it doesn't exist
-    File outputDir = new File(filePath).getParentFile();if(outputDir!=null&&!outputDir.exists())
-    {
-        outputDir.mkdirs();
+    public static List<LoanDecision> loadDecisionsFromJSON(String filePath)
+            throws IOException {
+        List<LoanDecision> decisions = new ArrayList<>();
+
+        // Check if file exists
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new FileNotFoundException("File not found: " + filePath);
+        }
+
+        String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+        // Check if content is empty
+        if (content.trim().isEmpty()) {
+            return decisions; // Return empty list
+        }
+
+        JSONArray jsonArray = new JSONArray(content);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+
+            Applicant applicant = new Applicant(
+                    obj.getString("applicantId"),
+                    obj.getDouble("monthlyIncome"),
+                    obj.getDouble("existingDebt"),
+                    obj.getInt("creditScore"),
+                    obj.getInt("employmentMonths"),
+                    obj.getDouble("loanAmountRequested"));
+
+            // Set risk score if it exists in JSON
+            if (obj.has("riskScore")) {
+                applicant.setRiskScore(obj.getDouble("riskScore"));
+            } else {
+                // Calculate if not present
+                applicant.calculateRiskScore();
+            }
+
+            // Get risk tier
+            String tierStr = obj.getString("riskTier");
+            RiskTier tier;
+            try {
+                tier = RiskTier.valueOf(tierStr);
+            } catch (IllegalArgumentException e) {
+                // Default to MEDIUM_RISK if invalid
+                tier = RiskTier.MEDIUM_RISK;
+            }
+
+            boolean approved = obj.getBoolean("approved");
+            String decisionReason = obj.getString("decisionReason");
+
+            // Create LoanDecision
+            LoanDecision decision = new LoanDecision(applicant, tier, approved, decisionReason);
+            decisions.add(decision);
+        }
+
+        return decisions;
     }
 
-    try(
-    FileWriter writer = new FileWriter(filePath))
-    {
-        // Write header for Excel
-        writer.write("Applicant ID\tMonthly Income\tExisting Debt\tCredit Score\t" +
-                "Employment Months\tLoan Amount Requested\tRisk Score\t" +
-                "Risk Tier\tApproved\tRecommended Limit\tInterest Rate\tDecision Reason\n");
+    public static void saveTextToFile(String content, String filePath) throws IOException {
+        // Create directory if it doesn't exist
+        File outputDir = new File(filePath).getParentFile();
+        if (outputDir != null && !outputDir.exists()) {
+            outputDir.mkdirs();
+        }
 
-        // Write data
-        for (LoanDecision decision : decisions) {
-            Applicant applicant = decision.getApplicant();
-
-            writer.write(String.format("%s\t%.2f\t%.2f\t%d\t%d\t%.2f\t%.1f\t%s\t%s\t%.2f\t%.2f%%\t%s\n",
-                    applicant.getId(),
-                    applicant.getMonthlyIncome(),
-                    applicant.getExistingDebt(),
-                    applicant.getCreditScore(),
-                    applicant.getEmploymentDuration(),
-                    applicant.getLoanAmountRequested(),
-                    applicant.getRiskScore(),
-                    decision.getRiskTier().getDisplayName(),
-                    decision.isApproved() ? "YES" : "NO",
-                    decision.getRecommendedLimit(),
-                    decision.getRiskTier().getBaseInterestRate() * 100,
-                    decision.getDecisionReason()));
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(content);
         }
     }
+
+    public static String readTextFromFile(String filePath) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(filePath)));
+    }
+
+    public static boolean fileExists(String filePath) {
+        return new File(filePath).exists();
+    }
+
 }
